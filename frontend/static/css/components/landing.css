@@ -3,7 +3,7 @@
     line-height: 1.5em;
 }
 
-    .landing-block {
+.landing-block {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
