@@ -90,6 +90,6 @@ def set_session_cookie(response, user, session):
         value=session.token,
         expires=max(user.membership_expires_at, datetime.utcnow() + timedelta(days=30)),
         httponly=True,
-        secure=not settings.DEBUG,
+        secure=False # not settings.DEBUG,
     )
     return response
