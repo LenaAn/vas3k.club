@@ -246,7 +246,7 @@ OPENID_CODE_EXPIRE_SECONDS = 300  # 5 minutes
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-MEDIA_UPLOAD_URL = "https://i.vas3k.club/upload/multipart/"
+MEDIA_UPLOAD_URL = "https://i.ulan-club.com/upload/multipart/"
 MEDIA_UPLOAD_CODE = os.getenv("MEDIA_UPLOAD_CODE")
 VIDEO_EXTENSIONS = {"mp4", "mov", "webm"}
 IMAGE_EXTENSIONS = {"jpg", "jpeg", "png", "gif"}

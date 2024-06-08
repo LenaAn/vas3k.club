@@ -9,7 +9,7 @@ services:
       - PYTHONUNBUFFERED=1
       - DEBUG=false
       - APP_HOST=https://ulan-club.com
-      - MEDIA_UPLOAD_URL=https://i.vas3k.club/upload/
+      - MEDIA_UPLOAD_URL=https://i.ulan-club.com/upload
       - POSTGRES_DB=vas3k_club
       - POSTGRES_USER=vas3k
       - POSTGRES_PASSWORD=vas3k
