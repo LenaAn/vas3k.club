@@ -9,7 +9,8 @@ from django.test import TestCase
 import json
 import time
 import yaml
-from unittest import skip
+from club import features
+from unittest import skip, skipIf
 from unittest.mock import patch
 
 from stripe.webhook import WebhookSignature
@@ -121,6 +122,7 @@ class TestPayView(TestCase):
     def setUp(self):
         self.client = HelperClient(user=self.existed_user)
 
+    @skipIf(not features.STRIPE_ENABLED, "we don't pay to Stripe if Stripe feature is disabled")
     def test_positive_new_user(self, mocked_stripe):
         # given
         product_code = "club1"
@@ -150,6 +152,7 @@ class TestPayView(TestCase):
         self.assertTrue(Payment.get(reference=session.id))
         self.assertContains(response=response, text="Платим 💰", status_code=200)
 
+    @skipIf(not features.STRIPE_ENABLED, "we don't pay to Stripe if Stripe feature is disabled")
     def test_positive_existed_authorised_user(self, mocked_stripe):
         # given
         product_code = "club1"
@@ -192,6 +195,7 @@ class TestPayView(TestCase):
         self.assertFalse(User.objects.filter(email=broken_email).exists(), )
         self.assertContains(response=response, text="Плохой e-mail адрес", status_code=200)
 
+    @skipIf(not features.STRIPE_ENABLED, "we don't get to choose product if Stripe feature is disabled")
     def test_product_not_found(self, mocked_stripe):
         product_code = "unexisted-product-code"
 
