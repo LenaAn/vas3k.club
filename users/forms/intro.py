@@ -53,12 +53,12 @@ class UserIntroForm(ModelForm):
     )
     company = forms.CharField(
         label="Компания",
-        required=True,
+        required=False,
         max_length=128
     )
     position = forms.CharField(
         label="Должность или что вы делаете",
-        required=True,
+        required=False,
         max_length=128
     )
     intro = forms.CharField(
@@ -67,7 +67,7 @@ class UserIntroForm(ModelForm):
         widget=forms.Textarea(
             attrs={
                 "maxlength": 10000,
-                "minlength": 600,
+                "minlength": 100,
                 "placeholder": "Расскажите Клубу о себе...",
             }
         ),
