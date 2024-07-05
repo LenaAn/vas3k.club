@@ -9,13 +9,13 @@ from users.models.user import User
 class Tag(models.Model):
     GROUP_HOBBIES = "hobbies"
     GROUP_PERSONAL = "personal"
-    GROUP_TECH = "tech"
+    GROUP_WHERE = "where"
     GROUP_CLUB = "club"
     GROUP_COLLECTIBLE = "collectible"
     GROUP_OTHER = "other"
     GROUPS = [
         (GROUP_PERSONAL, "Я"),
-        (GROUP_TECH, "Технологии"),
+        (GROUP_WHERE, "Где я"),
         (GROUP_CLUB, "Для других членов Клуба я..."),
         (GROUP_HOBBIES, "Хобби"),
         (GROUP_COLLECTIBLE, "Коллекционные теги"),
