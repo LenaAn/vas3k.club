@@ -127,7 +127,7 @@ class PostTextForm(PostForm):
             attrs={
                 "maxlength": 500000,
                 "class": "markdown-editor-full",
-                "placeholder": "Дорогой Мартин Алексеевич…"
+                "placeholder": "Мендут цуhар!"
             }
         ),
     )
@@ -678,7 +678,7 @@ class PostThreadForm(PostForm):
             attrs={
                 "maxlength": 500000,
                 "class": "markdown-editor-full",
-                "placeholder": "Дорогой Мартин Алексеевич…"
+                "placeholder": "Мендут цуhар!"
             }
         ),
     )
