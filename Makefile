@@ -33,9 +33,12 @@ docker-run-dev:  ## Runs dev server in docker
 	python3 manage.py update_tags
 	python3 manage.py runserver 0.0.0.0:8000
 
-docker-run-production: docker-migrate docker-update-achievements
+docker-run-production: docker-migrate docker-update-achievements docker-update-tags
 	cp -r /app/frontend/static /tmp/
 	gunicorn club.asgi:application -w 7 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8814 --capture-output --log-level debug --access-logfile - --error-logfile -
+
+docker-update-tags:
+	python3 manage.py update_tags
 
 docker-update-achievements:
 	python3 manage.py update_achievements
