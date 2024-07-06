@@ -11,8 +11,10 @@ from common.models import group_by, top
 from common.pagination import paginate
 from tags.models import Tag
 from users.models.user import User
+import logging
 
 TAGS_CACHE_TIMEOUT_SECONDS = 24 * 60 * 60  # 24 hours
+log = logging.getLogger(__name__)
 
 
 @require_auth
@@ -55,6 +57,9 @@ def people(request):
 
     tag_stat_groups = cache.get("people_tag_stat_groups")
     tags_with_stats = cache.get("people_tags_with_stats")
+    log.debug("got tag_stat_groups from cache: {}".format(tag_stat_groups))
+    log.debug("got tags_with_stats from cache: {}".format(tags_with_stats))
+
     if not tag_stat_groups or not tags_with_stats:
         tags_with_stats = Tag.tags_with_stats()
         tag_stat_groups = group_by(tags_with_stats, "group", todict=True)
@@ -65,6 +70,8 @@ def people(request):
         })
         cache.set("people_tag_stat_groups", tag_stat_groups, TAGS_CACHE_TIMEOUT_SECONDS)
         cache.set("people_tags_with_stats", tags_with_stats, TAGS_CACHE_TIMEOUT_SECONDS)
+        log.debug("set tag_stat_groups to cache: {}".format(tag_stat_groups))
+        log.debug("set tags_with_stats to cache: {}".format(tags_with_stats))
 
     active_countries = User.registered_members().filter(country__isnull=False)\
         .values("country")\
