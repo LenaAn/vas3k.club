@@ -64,7 +64,7 @@ const App = {
                 themeSwitch.checked = isDark;
             }
 
-            svgFavicon.href = isDark ? "/static/images/favicon/favicon-dark.svg" : "/static/images/favicon/favicon.svg";
+            svgFavicon.href = "/static/images/favicon/favicon.svg";
         };
 
         setFaviconHref(mediaQueryList);
