@@ -4,7 +4,7 @@
 {% load render_bundle from webpack_loader %}
 <html lang="ru" theme="dark">
 <head>
-    <title>{% block title %}Ulan.club ✖️‍{% endblock %}</title>
+    <title>{% block title %}Улан.Клуб{% endblock %}</title>
     {% block fonts %}
         {% include "common/fonts.html" %}
     {% endblock %}
@@ -33,7 +33,7 @@
         <div class="landing-block landing-block-limited">
             <img src="{% static "images/logo/logo-1024.png" %}" alt="">
             <div class="landing-title">
-                <h1>Ulan.club</h1>
+                <h1>Улан.Клуб</h1>
                 <p>Социальная сеть для калмыков в иммиграции. Здесь мы делимся опытом построения жизни в новой стране</p>
                 <a href="{% url "login" %}" class="button button-black">Войти</a>
             </div>
