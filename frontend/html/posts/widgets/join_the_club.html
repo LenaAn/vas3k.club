@@ -6,10 +6,6 @@
     </p>
 
     <p>
-        <a href="{% url "docs" "about" %}" target="_blank">Что вообще здесь происходит?</a>
-    </p>
-
-    <p>
         <br><a href="{% url "login" %}?goto={{ settings.APP_HOST }}{{ request.path }}" class="button">Войти</a>&nbsp;&nbsp;или&nbsp;&nbsp;<a href="{% url "join" %}" class="button">Вступить в Клуб</a>
     </p>
 </div>
