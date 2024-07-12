@@ -16,7 +16,7 @@ jobs:
         run: |
           github_actor_lowercase=$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]')
           docker login ghcr.io -u ${github_actor_lowercase} -p ${{ secrets.TOKEN }}
-          docker build -t ghcr.io/${github_actor_lowercase}/club:latest -t ghcr.io/${github_actor_lowercase}/club:$GITHUB_SHA .
+          docker build --no-cache -t ghcr.io/${github_actor_lowercase}/club:latest -t ghcr.io/${github_actor_lowercase}/club:$GITHUB_SHA .
           docker image push ghcr.io/${github_actor_lowercase}/club:$GITHUB_SHA
           docker image push ghcr.io/${github_actor_lowercase}/club:latest
 
