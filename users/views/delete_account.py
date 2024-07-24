@@ -1,4 +1,5 @@
 from datetime import datetime
+import logging
 
 from django.conf import settings
 from django.shortcuts import redirect, render
@@ -11,6 +12,8 @@ from club.exceptions import BadRequest, AccessDenied
 from gdpr.models import DataRequests
 from notifications.email.users import send_delete_account_request_email, send_delete_account_confirm_email
 from payments.helpers import cancel_all_stripe_subscriptions
+
+log = logging.getLogger(__name__)
 
 
 @require_auth
@@ -29,6 +32,7 @@ def request_delete_account(request):
     DataRequests.register_forget_request(request.me)
 
     code = Code.create_for_user(user=request.me, recipient=request.me.email, length=settings.GDPR_DELETE_CODE_LENGTH)
+    log.info(f"Created delete account code {code.code} for user {request.me}")
     async_task(
         send_delete_account_request_email,
         user=request.me,
