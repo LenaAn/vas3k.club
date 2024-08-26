@@ -50,7 +50,7 @@ def get_club_user(update: Update):
             update.callback_query.answer(text=f"☝️ Привяжи бота к профилю, братишка")
         else:
             update.message.reply_text(
-                f"😐 Привяжи <a href=\"https://vas3k.club/user/me/edit/bot/\">бота</a> к профилю, братишка",
+                f"😐 Привяжи <a href=\"https://ulan-club.com/user/me/edit/bot/\">бота</a> к профилю, братишка",
                 parse_mode=ParseMode.HTML
             )
         return None
