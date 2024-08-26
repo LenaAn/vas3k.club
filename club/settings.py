@@ -19,8 +19,7 @@ ALLOWED_HOSTS = ["*", "127.0.0.1", "localhost", "0.0.0.0", "vas3k.club"]
 INTERNAL_IPS = ["127.0.0.1"]
 
 ADMINS = [
-    ("admin", "club@vas3k.club"),
-    ("vas3k", "me@vas3k.ru"),
+    ("admin", "club@ulan-club.com"),
 ]
 
 INSTALLED_APPS = [
