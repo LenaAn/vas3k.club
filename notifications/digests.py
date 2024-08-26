@@ -86,7 +86,7 @@ def generate_daily_digest(user):
         .first()
 
     # Filter out "bad" top posts
-    if top_old_post.upvotes < MIN_TOP_POST_UPVOTES:
+    if top_old_post is None or top_old_post.upvotes < MIN_TOP_POST_UPVOTES:
         top_old_post = None
 
     if not new_post_comments and not new_posts and not intros:
