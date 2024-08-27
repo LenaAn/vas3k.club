@@ -30,7 +30,6 @@ class Command(BaseCommand):
                 .filter(
                     email_digest_type=User.EMAIL_DIGEST_TYPE_DAILY,
                     is_email_verified=True,
-                    # dirty hack since STRIPE is disabled
                     # membership_expires_at__gte=datetime.utcnow() - timedelta(days=14),
                     moderation_status=User.MODERATION_STATUS_APPROVED,
                     deleted_at__isnull=True,
@@ -44,22 +43,5 @@ class Command(BaseCommand):
 
             # render user digest using a special html endpoint
             self.stdout.write(f"Generating digest for user: {user.slug}")
-
-            try:
-                digest = generate_daily_digest(user)
-            except NotFound:
-                self.stdout.write("Empty digest. Skipping")
-                continue
-
-            self.stdout.write(f"Sending message to {user.slug}...")
-
-            try:
-                send_telegram_message(
-                    chat=Chat(id=user.telegram_id),
-                    text=digest,
-                )
-            except Exception as ex:
-                self.stdout.write(f"Sending to {user.email} failed: {ex}")
-                continue
 
         self.stdout.write("Done 🥙")
