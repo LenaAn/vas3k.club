@@ -26,12 +26,13 @@ MIN_TOP_POST_UPVOTES = 30
 def generate_daily_digest(user):
     end_date = datetime.utcnow()
 
+    # we don't have activity now, but want to send digests
     if end_date.weekday() == 1:
         # we don't have daily digest on weekends and mondays, we need to include all these posts at tuesday
-        start_date = end_date - timedelta(hours=3 * 24 + BONUS_HOURS)
+        start_date = end_date - timedelta(hours=5 * 24 + BONUS_HOURS)
     else:
         # other days are quieter
-        start_date = end_date - timedelta(hours=2 * 24 + BONUS_HOURS)
+        start_date = end_date - timedelta(hours=4 * 24 + BONUS_HOURS)
 
     if settings.DEBUG:
         start_date = end_date - timedelta(days=1000)
