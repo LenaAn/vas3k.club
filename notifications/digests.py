@@ -219,7 +219,7 @@ def generate_weekly_digest(no_footer=False):
     issue_number = (end_date - settings.LAUNCH_DATE).days // 7
 
     # Pro tips
-    pro_tip = ProTip.weekly_tip(issue_number)
+    # pro_tip = ProTip.weekly_tip(issue_number)
 
     og_params = urlencode({
         **settings.OG_IMAGE_GENERATOR_DEFAULTS,
@@ -248,7 +248,7 @@ def generate_weekly_digest(no_footer=False):
         "digest_title": digest_title,
         "digest_intro": digest_intro,
         "issue_number": issue_number,
-        "pro_tip": pro_tip,
+        "pro_tip": None,
         "is_footer_excluded": no_footer,
         "og_image_url": f"{settings.OG_IMAGE_GENERATOR_URL}?{og_params}",
         "og_description": og_description,
