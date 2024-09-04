@@ -8,7 +8,7 @@ from django.core.management import BaseCommand
 
 from club.exceptions import NotFound
 from notifications.digests import generate_weekly_digest
-from notifications.telegram.common import send_telegram_message, CLUB_CHANNEL, render_html_message
+from notifications.telegram.common import send_telegram_message, Chat, CLUB_CHANNEL, render_html_message
 from landing.models import GodSettings
 from notifications.email.sender import send_club_email
 from posts.models.post import Post
@@ -67,38 +67,25 @@ class Command(BaseCommand):
             .exclude(is_email_unsubscribed=True)
 
         for user in subscribed_users:
-            self.stdout.write(f"Sending to {user.email}...")
-
             if not options.get("production") and not user.is_god:
                 continue
 
             try:
-                digest = digest_template\
-                    .replace("%username%", user.slug)\
-                    .replace("%user_id%", str(user.id))\
-                    .replace("%secret_code%", base64.b64encode(user.secret_hash.encode("utf-8")).decode())
+                self.stdout.write(f"Sending to {user.email}...")
 
-                send_club_email(
-                    recipient=user.email,
-                    subject=f"🤘 Клубный журнал. Итоги недели. Выпуск #{issue}",
-                    html=digest,
-                    tags=["weekly_digest", f"weekly_digest_{issue}"]
+                send_telegram_message(
+                    chat=Chat(id=user.telegram_id),
+                    text=render_html_message("weekly_digest_announce.html", post=post),
+                    disable_preview=False,
+                    parse_mode=telegram.ParseMode.HTML,
                 )
+
             except Exception as ex:
                 self.stdout.write(f"Sending to {user.email} failed: {ex}")
-                log.exception(f"Error while sending an email to {user.email}")
                 continue
 
         if options.get("production"):
             # flush digest intro and title for next time
             GodSettings.objects.update(digest_intro=None, digest_title=None)
-
-            # announce on channel
-            send_telegram_message(
-                chat=CLUB_CHANNEL,
-                text=render_html_message("weekly_digest_announce.html", post=post),
-                disable_preview=False,
-                parse_mode=telegram.ParseMode.HTML,
-            )
 
         self.stdout.write("Done 🥙")
