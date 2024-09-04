@@ -125,11 +125,8 @@ def generate_weekly_digest(no_footer=False):
         .filter(type=Post.TYPE_INTRO, **published_at_condition)\
         .order_by("-upvotes")
 
-    newbie_count = User.objects\
-        .filter(
-            moderation_status=User.MODERATION_STATUS_APPROVED,
-            **created_at_condition
-        )\
+    newbie_count = Post.visible_objects()\
+        .filter(type=Post.TYPE_INTRO, **published_at_condition)\
         .count()
 
     # Best posts
